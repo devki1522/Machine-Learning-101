@@ -6,21 +6,31 @@
 
 using namespace std;
 
+typedef enum phoneOrientation {
+	Unknown,
+	FaceUp,
+	FaceDown,
+	PortraitUp,
+	PortraitDown,
+	LandscapeLeft,
+	LandscapeRight
+}ORIENT;
+
 class phoneVectors {
 private:
 	double x, y, z;				//vector components to be used for phone orientation
-	string phoneOrientation;	// phone orientation
+	ORIENT phoneOrientation;	// phone orientation
 public:
-	phoneVectors(double x, double y, double z, const string& phoneOrientation = "");	//constructor
+	phoneVectors(double x, double y, double z, ORIENT phoneOrientation=Unknown);	//constructor
 	
 	// creating getters to read private data
 	double getX();
 	double getY();
 	double getZ();
-	string getPhoneOrientation();
+	ORIENT getPhoneOrientation();
 
 	// creating setters to change values
-	void setPhoneOrientation(string& phoneOrientation);
+	void setPhoneOrientation(ORIENT& phoneOrientation);
 	double distance(phoneVectors& other);
 	void print();
 };

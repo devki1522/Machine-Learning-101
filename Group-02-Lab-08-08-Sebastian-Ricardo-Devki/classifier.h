@@ -10,7 +10,7 @@ class classifier {		//abstract base class
 public:
 	virtual void trainModel(vector<phoneVectors>& trainingData) = 0; // virtual function for training the model with labeled data
 
-	virtual string classify(phoneVectors& input) = 0;				 // perdict the label for a new data point 
+	virtual ORIENT classify(phoneVectors& input) = 0;				 // perdict the label for a new data point 
 	
 	virtual ~classifier() {
 
@@ -23,14 +23,14 @@ private:
 	vector<phoneVectors> trainingData;
 public:
 	void trainModel(vector<phoneVectors>& trainingData) override;
-	string classify(phoneVectors& input) override;
+	ORIENT classify(phoneVectors& input) override;
 };
 
 // AnotherClassifier 
 class AnotherClassifier :public classifier {
 public:
 	void trainModel(vector<phoneVectors>& trainingData) override;
-	string classify(phoneVectors& input) override;
+	ORIENT classify(phoneVectors& input) override;
 
 };
 
@@ -38,5 +38,5 @@ public:
 class KNNClassifier :public classifier {
 public:
 	void trainModel(vector<phoneVectors>& trainingData) override;
-	string classify(phoneVectors& input) override;
+	ORIENT classify(phoneVectors& input) override;
 };
