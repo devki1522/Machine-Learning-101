@@ -40,3 +40,5 @@ public:
 
 
 vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown);
+
+void writeVectorsToFile(string filename, vector<phoneVectors> data);

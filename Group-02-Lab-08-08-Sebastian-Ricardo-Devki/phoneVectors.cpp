@@ -82,7 +82,6 @@ vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown)
 	double y;
 	double z;
 	ORIENT o=Unknown; //default value in case file doesnt give em
-	//not an ORIENT because type
 
 	ifstream fp(filename);
 	if (!fp.is_open()) {
@@ -91,6 +90,8 @@ vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown)
 		exit(EXIT_FAILURE);
 	}
 
+
+	//takes the file a single line at a time
 	while (getline(fp, temp)) {
 		istringstream line(temp);//turns it into a stream or something
 
@@ -107,7 +108,7 @@ vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown)
 		if (orientationknown) {
 			getline(line, temp2, ',');
 			o =(ORIENT) stoi(temp2);
-				//why are enums so annoying in cpp?
+			//why are enums so annoying in cpp?
 		}
 
 
@@ -115,7 +116,21 @@ vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown)
 		fileVectors.push_back(v);
 	}
 
+	fp.close();
 
 	return fileVectors;
 }
 
+void writeVectorsToFile(string filename, vector<phoneVectors> data) {
+	ofstream fp(filename);
+	if (!fp.is_open()) {
+		fprintf(stderr, "problem opening output file\n");
+		return; //dont have to exit failure here since function is void
+	}
+
+	for (phoneVectors v : data) {
+		fp << v.getX() << "," << v.getY() << "," << v.getZ() <<","<<v.getPhoneOrientation()<< endl;
+	}
+
+	fp.close();
+}
