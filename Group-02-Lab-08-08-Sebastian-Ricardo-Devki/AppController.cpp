@@ -93,6 +93,7 @@ double AppController::GetDoubleFromUser(const std::string& prompt) {
     return val;
 }
 
+
 string AppController::GetStringFromUser(const std::string& prompt) {
     cout << prompt;
     string input;
@@ -105,47 +106,49 @@ void AppController::ProcessSingleSample() {
     double y = GetDoubleFromUser("Enter y: ");
     double z = GetDoubleFromUser("Enter z: ");
 
-    phoneVectors sample(x, y, z, "");
+    phoneVectors sample(x, y, z);
 
-    string orientation = nn.classify(sample);
-    cout << "Detected orientation: " << orientation << "\n";
+    ORIENT orientation = nn.classify(sample);
+    //takes a lot of space but I can't think of another way to do this
+    string oriout;
+    switch (orientation) {
+    case Unknown:
+        oriout = "unknown";
+        break;
+    case FaceUp:
+        oriout = "faceup";
+        break;
+    case FaceDown:
+        oriout = "facedown";
+        break;
+    case PortraitUp:
+        oriout = "portrait";
+        break;
+    case PortraitDown:
+        oriout = "portrait upside down";
+        break;
+    case LandscapeLeft:
+        oriout = "landscapeleft";
+        break;
+    case LandscapeRight:
+        oriout = "landscapeRight";
+        break;
+    }
+    cout << "Detected orientation: " << oriout << "\n";
 }
 
 void AppController::ProcessFileInput() {
     string inputFilename = GetStringFromUser("Enter input filename (e.g., unknownData.txt): ");
-    ifstream inputFile(inputFilename);
 
-    if (!inputFile.is_open()) {
-        cout << "Failed to open input file.\n";
-        return;
+    vector<phoneVectors> inputvectors =readVectorsFromFile(inputFilename, false);
+
+    for (phoneVectors& v : inputvectors) {
+        ORIENT result = nn.classify(v);
+        v.setPhoneOrientation(result);
     }
 
-    ofstream outputFile("result.txt");
-    if (!outputFile.is_open()) {
-        cout << "Failed to open output file.\n";
-        inputFile.close();
-        return;
-    }
+    writeVectorsToFile("results-" + inputFilename,inputvectors);
 
-    outputFile << "x y z orientation\n";
 
-    string line;
-    while (getline(inputFile, line)) {
-        if (line.empty()) continue;
-
-        istringstream iss(line);
-        double x, y, z;
-        if (!(iss >> x >> y >> z)) {
-            cout << "Invalid line in input file: " << line << "\n";
-            continue;
-        }
-
-        phoneVectors sample(x, y, z, "");
-        string orientation = nn.classify(sample);
-        outputFile << x << " " << y << " " << z << " " << orientation << "\n";
-    }
-
-    inputFile.close();
-    outputFile.close();
     cout << "Classification complete. Results saved in result.txt\n";
 }

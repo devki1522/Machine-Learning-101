@@ -24,12 +24,18 @@
     <ClCompile Include="classifiers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AppController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="phoneVectors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="classifier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AppController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,6 +8,9 @@ class AppController
 {
 public:
     void Run();
+    NNClassifier nn;
+    AnotherClassifier another;
+    KNNClassifier knn;
 
 private:
     int DisplayMainMenu();
@@ -20,7 +23,5 @@ private:
     double GetDoubleFromUser(const std::string& prompt);
     std::string GetStringFromUser(const std::string& prompt);
 
-    NNClassifier nn;
-    AnotherClassifier another;
-    KNNClassifier knn;
+
 };
