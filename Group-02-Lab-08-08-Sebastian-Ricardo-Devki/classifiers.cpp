@@ -5,16 +5,21 @@
 #include <iostream>
 #include <limits>
 
-//NNClasifier
 
 using namespace std;
+
+
+//NNClasifier
 
 void NNClassifier::trainModel(vector<phoneVectors>& trainingData) {
 	this->trainingData = trainingData;
 }
+
+
 ORIENT NNClassifier::classify(phoneVectors& input) {
 	double minDistance = numeric_limits<double>::max();
 	ORIENT closestOrientation = Unknown;
+
 	for (auto& point : trainingData) {
 		double distance = input.distance(point);
 		if (distance < minDistance) {
@@ -24,6 +29,8 @@ ORIENT NNClassifier::classify(phoneVectors& input) {
 	}
 	return closestOrientation;
 }
+
+
 
 //AnotherClassifier
 

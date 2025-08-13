@@ -21,8 +21,8 @@ private:
 	double x, y, z;				//vector components to be used for phone orientation
 	ORIENT phoneOrientation;	// phone orientation
 public:
-	phoneVectors(double x, double y, double z, ORIENT phoneOrientation=Unknown);	//constructor
-	
+	phoneVectors(double x, double y, double z, int phoneOrientation=Unknown);	//constructor
+							//cpp is really dumb and doesn't let you implicitly cast ints->enums, which would mess up file reads
 	// creating getters to read private data
 	double getX();
 	double getY();

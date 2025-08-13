@@ -7,8 +7,14 @@
 
 using namespace std;
 
-phoneVectors::phoneVectors(double x, double y, double z, ORIENT phoneOrientation)	//constructor intializing the phonevectors
-	: x(x), y(y), z(z), phoneOrientation(phoneOrientation){ }
+//constructor intializing the phonevectors
+phoneVectors::phoneVectors(double x, double y, double z, int phoneOrientation) {
+	this->x = x;
+	this->y = y;
+	this->z = z;
+	this->phoneOrientation = (ORIENT)phoneOrientation;
+		//wow this is super dumb why cant I just do it like in C?
+}
 
 // getter function to read private data of phoneVectors
 
@@ -27,8 +33,8 @@ double phoneVectors::distance(phoneVectors& other){  //this function calculates 
 	double dz = z - other.z;
 	//I don't think the math's right here?
 	//shouldn't it be sqrt(dx^2 + dy^2 + dz^2) ??
-	//return sqrt(dx*dx + dy*dy + dz*dz); //would take care of any negatives too
-	return sqrt(dx * dy + dy * dz + dz * dx);
+	return sqrt(dx*dx + dy*dy + dz*dz); //would take care of any negatives too
+//	return sqrt(dx * dy + dy * dz + dz * dx);
 }
 
 void phoneVectors::print() {
