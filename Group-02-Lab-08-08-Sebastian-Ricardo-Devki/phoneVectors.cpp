@@ -26,7 +26,9 @@ ORIENT phoneVectors::getPhoneOrientation() { return phoneOrientation; }
 
 //setter functions to change private data of phoneVectors
 
-void phoneVectors::setPhoneOrientation(ORIENT& phoneOrientation) { this->phoneOrientation = phoneOrientation; }
+void phoneVectors::setPhoneOrientation(ORIENT orien) { 
+	phoneOrientation = orien;
+}
 
 double phoneVectors::distance(phoneVectors& other){  //this function calculates and returns euclidean distance between two 3D points 
 	double dx = x - other.x;

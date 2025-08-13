@@ -33,7 +33,7 @@ public:
 	ORIENT getPhoneOrientation();
 
 	// creating setters to change values
-	void setPhoneOrientation(ORIENT& phoneOrientation);
+	void setPhoneOrientation(ORIENT orien);
 	double distance(phoneVectors& other);
 	void print();
 };
