@@ -5,16 +5,21 @@
 #include <iostream>
 #include <limits>
 
-//NNClasifier
 
 using namespace std;
+
+
+//NNClasifier
 
 void NNClassifier::trainModel(vector<phoneVectors>& trainingData) {
 	this->trainingData = trainingData;
 }
-string NNClassifier::classify(phoneVectors& input) {
+
+
+ORIENT NNClassifier::classify(phoneVectors& input) {
 	double minDistance = numeric_limits<double>::max();
-	string closestOrientation = "unknown";
+	ORIENT closestOrientation = Unknown;
+
 	for (auto& point : trainingData) {
 		double distance = input.distance(point);
 		if (distance < minDistance) {
@@ -25,14 +30,16 @@ string NNClassifier::classify(phoneVectors& input) {
 	return closestOrientation;
 }
 
+
+
 //AnotherClassifier
 
 void AnotherClassifier::trainModel(vector<phoneVectors>&) {
 	cout << "Training not implemented yet." << endl;
 }
-string AnotherClassifier::classify(phoneVectors&) {
+ORIENT AnotherClassifier::classify(phoneVectors&) {
 	cout << "classification not implemented yet." << endl;
-	return "unknown.";
+	return Unknown;
 }
 
 //KNNClassifier
@@ -40,7 +47,7 @@ string AnotherClassifier::classify(phoneVectors&) {
 void KNNClassifier::trainModel(vector<phoneVectors>&) {
 	cout << "Training not implemented yet." << endl;
 }
-string KNNClassifier::classify(phoneVectors&) {
+ORIENT KNNClassifier::classify(phoneVectors&) {
 	cout << "classification not implemented yet." << endl;
-	return "unknown.";
+	return Unknown;
 }

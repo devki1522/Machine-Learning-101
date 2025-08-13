@@ -3,24 +3,42 @@
 // Group 02 - Lab - 08 - 09 - Sebastian - Ricardo - Devki
 
 #include <string>
+#include <fstream>
+#include <vector>
+
 
 using namespace std;
+
+typedef enum phoneOrientation {
+	Unknown,
+	FaceUp,
+	FaceDown,
+	PortraitUp,
+	PortraitDown,
+	LandscapeLeft,
+	LandscapeRight
+}ORIENT;
 
 class phoneVectors {
 private:
 	double x, y, z;				//vector components to be used for phone orientation
-	string phoneOrientation;	// phone orientation
+	ORIENT phoneOrientation;	// phone orientation
 public:
-	phoneVectors(double x, double y, double z, const string& phoneOrientation = "");	//constructor
-	
+	phoneVectors(double x, double y, double z, int phoneOrientation=Unknown);	//constructor
+							//cpp is really dumb and doesn't let you implicitly cast ints->enums, which would mess up file reads
 	// creating getters to read private data
 	double getX();
 	double getY();
 	double getZ();
-	string getPhoneOrientation();
+	ORIENT getPhoneOrientation();
 
 	// creating setters to change values
-	void setPhoneOrientation(string& phoneOrientation);
+	void setPhoneOrientation(ORIENT orien);
 	double distance(phoneVectors& other);
 	void print();
 };
+
+
+vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown);
+
+void writeVectorsToFile(string filename, vector<phoneVectors> data);
