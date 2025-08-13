@@ -4,6 +4,7 @@
 #include "phoneVectors.h"
 #include <iostream>
 #include <cmath>
+#include <sstream>
 
 using namespace std;
 
@@ -65,5 +66,56 @@ void phoneVectors::print() {
 		break;
 	}
 
-	cout << "phone vectors : (" << x << "," << y << "," << z << ") | phone orientation : " << oriout<<endl;
+	cout << "phone vectors : (" << x << "," << y << "," << z << ") | phone orientation : " << phoneOrientation<<endl;
 }
+
+
+
+vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown) {
+	//i barely have any idea how any of this stuff works tbh
+
+	vector<phoneVectors> fileVectors;
+	string temp; //for storing each line as we read it
+	string temp2; //for storing each comma separated value as we change it to int
+	//temp vars for storing read values
+	double x;
+	double y;
+	double z;
+	ORIENT o=Unknown; //default value in case file doesnt give em
+	//not an ORIENT because type
+
+	ifstream fp(filename);
+	if (!fp.is_open()) {
+		//can't think of another way of doing this since this function has to return
+		fprintf(stderr, "error opening file, might not exist\n");
+		exit(EXIT_FAILURE);
+	}
+
+	while (getline(fp, temp)) {
+		istringstream line(temp);//turns it into a stream or something
+
+		getline(line, temp2, ',');//splits by comma
+		x = stod(temp2);
+
+		getline(line, temp2, ',');//splits by comma
+		y = stod(temp2);
+
+		getline(line, temp2, ',');//should work despite the newline
+		z = stod(temp2);
+
+		//really ugly way of doing things i know
+		if (orientationknown) {
+			getline(line, temp2, ',');
+			o =(ORIENT) stoi(temp2);
+				//why are enums so annoying in cpp?
+		}
+
+
+		phoneVectors v(x, y, z,o);
+		fileVectors.push_back(v);
+	}
+
+
+	return fileVectors;
+}
+

@@ -3,6 +3,9 @@
 // Group 02 - Lab - 08 - 09 - Sebastian - Ricardo - Devki
 
 #include <string>
+#include <fstream>
+#include <vector>
+
 
 using namespace std;
 
@@ -34,3 +37,6 @@ public:
 	double distance(phoneVectors& other);
 	void print();
 };
+
+
+vector<phoneVectors> readVectorsFromFile(string filename, bool orientationknown);
