@@ -24,27 +24,10 @@ double phoneVectors::getY() { return y; }
 double phoneVectors::getZ() { return z; }
 ORIENT phoneVectors::getPhoneOrientation() { return phoneOrientation; }
 
-//setter functions to change private data of phoneVectors
-
-void phoneVectors::setPhoneOrientation(ORIENT orien) { 
-	phoneOrientation = orien;
-}
-
-double phoneVectors::distance(phoneVectors& other){  //this function calculates and returns euclidean distance between two 3D points 
-	double dx = x - other.x;
-	double dy = y - other.y;
-	double dz = z - other.z;
-	//I don't think the math's right here?
-	//shouldn't it be sqrt(dx^2 + dy^2 + dz^2) ??
-	return sqrt(dx*dx + dy*dy + dz*dz); //would take care of any negatives too
-//	return sqrt(dx * dy + dy * dz + dz * dx);
-}
-
-void phoneVectors::print() {
-
+string phoneVectors::getOrientationAsString() {
 	//takes a lot of space but I can't think of another way to do this
 	string oriout;
-	switch (phoneOrientation) {
+	switch (phoneOrientation){
 	case Unknown:
 		oriout = "unknown";
 		break;
@@ -68,8 +51,30 @@ void phoneVectors::print() {
 		break;
 	}
 
+	return oriout;
+}
+
+//setter functions to change private data of phoneVectors
+
+void phoneVectors::setPhoneOrientation(ORIENT orien) { 
+	phoneOrientation = orien;
+}
+
+double phoneVectors::distance(phoneVectors& other){  //this function calculates and returns euclidean distance between two 3D points 
+	double dx = x - other.x;
+	double dy = y - other.y;
+	double dz = z - other.z;
+	//I don't think the math's right here?
+	//shouldn't it be sqrt(dx^2 + dy^2 + dz^2) ??
+	return sqrt(dx*dx + dy*dy + dz*dz); //would take care of any negatives too
+//	return sqrt(dx * dy + dy * dz + dz * dx);
+}
+
+void phoneVectors::print() {
+
 	cout << "phone vectors : (" << x << "," << y << "," << z << ") | phone orientation : " << phoneOrientation<<endl;
 }
+
 
 
 
@@ -131,7 +136,7 @@ void writeVectorsToFile(string filename, vector<phoneVectors> data) {
 	}
 
 	for (phoneVectors v : data) {
-		fp << v.getX() << "," << v.getY() << "," << v.getZ() <<","<<v.getPhoneOrientation()<< endl;
+		fp << v.getX() << "," << v.getY() << "," << v.getZ() <<","<<v.getPhoneOrientation()<<","<<v.getOrientationAsString()<<endl;
 	}
 
 	fp.close();

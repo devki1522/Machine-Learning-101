@@ -31,6 +31,7 @@ public:
 	double getY();
 	double getZ();
 	ORIENT getPhoneOrientation();
+	string getOrientationAsString();
 
 	// creating setters to change values
 	void setPhoneOrientation(ORIENT orien);

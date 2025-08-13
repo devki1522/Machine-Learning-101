@@ -150,5 +150,5 @@ void AppController::ProcessFileInput() {
     writeVectorsToFile("results-" + inputFilename,inputvectors);
 
 
-    cout << "Classification complete. Results saved in result.txt\n";
+    cout << "Classification complete. Results saved in results-" << inputFilename << endl;
 }
