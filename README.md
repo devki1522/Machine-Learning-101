@@ -70,6 +70,38 @@ classDiagram
     AppController --> KNNClassifier
 ```
 
+```mermaid
+flowchart TD
+
+A[Start System] --> B[Initialize SCADA & Connect Trucks]
+B --> C[Receive Truck Status Data]
+C --> D{Truck Idle?}
+
+D -- Yes --> E[Assign Load via Dispatcher]
+D -- No --> F[Monitor Active Trucks]
+
+E --> G[Truck Executes Delivery]
+F --> G
+
+G --> H[Update Fuel, Location, Load Status]
+H --> I[Store Data in Database & Update HMI]
+I --> J{Any Alerts?}
+
+J -- Yes --> K[Trigger Alarm & Notify Dispatcher]
+J -- No --> L[Continue Monitoring]
+
+K --> L
+L --> M{Delivery Complete?}
+
+M -- Yes --> N[Set Truck to Idle]
+M -- No --> C
+
+N --> C
+C --> O[System Shutdown]
+O --> P[Save Logs & Disconnect]
+P --> Q[End]
+
+```
 
     classifier --> phoneVectors
     NNClassifier --> phoneVectors
